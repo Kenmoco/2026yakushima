@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>屋久島＆鹿児島 旅のしおり</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest-deep:#1f3d2b;
+    --forest-mid:#33553b;
+    --moss:#6f8f6f;
+    --moss-pale:#a9c1a4;
+    --mist:#eef1ec;
+    --paper:#faf9f4;
+    --gold:#bd9631;
+    --gold-soft:#e4d29b;
+    --cedar:#6b4a30;
+    --water:#2c6975;
+    --alert:#a8462f;
+    --ink:#26281f;
+    --ink-soft:#565a4c;
+    --line:#dbdfd3;
+    --radius:14px;
+    --shadow:0 10px 30px -12px rgba(31,61,43,.25);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--mist);
+    color:var(--ink);
+    font-family:'Noto Sans JP',sans-serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:'Shippori Mincho',serif;}
+  a{color:inherit;}
+  ::selection{background:var(--gold-soft);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:76px 20px 54px;
+    text-align:center;
+    color:var(--paper);
+    background:
+      radial-gradient(ellipse at 30% 0%, rgba(255,255,255,.08), transparent 55%),
+      linear-gradient(180deg,#0f2318 0%, var(--forest-deep) 45%, var(--forest-mid) 100%);
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;inset:0;
+    background:repeating-linear-gradient(115deg, rgba(255,255,255,.05) 0 1px, transparent 1px 34px);
+    animation:rainDrift 9s linear infinite;
+    opacity:.55;
+    pointer-events:none;
+  }
+  @keyframes rainDrift{
+    from{background-position:0 0;}
+    to{background-position:-340px 480px;}
+  }
+  .ridge{display:block;width:100%;height:auto;position:relative;z-index:1;}
+  .hero-inner{position:relative;z-index:2;max-width:640px;margin:0 auto;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.72rem;letter-spacing:.28em;
+    color:var(--moss-pale);
+    margin-bottom:18px;
+  }
+  .eyebrow::before,.eyebrow::after{content:"";width:22px;height:1px;background:var(--moss-pale);opacity:.6;}
+  .hero h1{
+    font-size:clamp(1.9rem,5vw,2.6rem);
+    font-weight:700;
+    margin:0 0 10px;
+    letter-spacing:.04em;
+    line-height:1.5;
+  }
+  .hero p.sub{
+    margin:0 auto 30px;
+    max-width:34em;
+    color:var(--mist);
+    opacity:.85;
+    font-size:.95rem;
+  }
+  .map-btn{
+    display:inline-flex;align-items:center;gap:9px;
+    background:var(--gold);
+    color:#241c05;
+    padding:14px 28px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:.95rem;
+    letter-spacing:.03em;
+    box-shadow:0 12px 24px -8px rgba(189,150,49,.55);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .map-btn:hover{transform:translateY(-2px);box-shadow:0 16px 28px -8px rgba(189,150,49,.65);}
+  .map-btn svg{width:18px;height:18px;flex:none;}
+
+  /* ---------- STICKY NAV ---------- */
+  .tabnav{
+    position:sticky;top:0;z-index:40;
+    display:flex;gap:4px;
+    padding:10px 12px;
+    background:rgba(250,249,244,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .tabnav::-webkit-scrollbar{display:none;}
+  .tabnav button{
+    flex:none;
+    font-family:'Noto Sans JP',sans-serif;
+    font-size:.82rem;
+    font-weight:600;
+    letter-spacing:.03em;
+    color:var(--ink-soft);
+    background:transparent;
+    border:none;
+    padding:9px 14px;
+    border-radius:999px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:background .2s ease,color .2s ease;
+  }
+  .tabnav button.active{background:var(--forest-deep);color:var(--paper);}
+  .tabnav button:hover:not(.active){background:var(--mist);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:56px 18px 10px;max-width:760px;margin:0 auto;}
+  .section-head{
+    display:flex;align-items:center;gap:12px;
+    margin-bottom:30px;
+  }
+  .section-head svg{width:22px;height:22px;color:var(--forest-mid);flex:none;}
+  .section-head h2{
+    margin:0;
+    font-size:1.35rem;
+    color:var(--forest-deep);
+    letter-spacing:.03em;
+  }
+  .section-head .rule{flex:1;height:1px;background:var(--line);}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+
+  /* ---------- RIDGE DIVIDER ---------- */
+  .divider{max-width:100%;height:34px;margin:0 auto;display:block;opacity:.9;}
+
+  /* ---------- DAY CARD ---------- */
+  .day-card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:26px 22px 22px;
+    margin-bottom:26px;
+    border:1px solid var(--line);
+  }
+  .day-head{display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+  .day-badge{flex:none;}
+  .day-head-text .kicker{
+    display:block;font-size:.72rem;letter-spacing:.2em;color:var(--moss);font-weight:600;margin-bottom:2px;
+  }
+  .day-head-text h3{margin:0;font-size:1.2rem;color:var(--forest-deep);letter-spacing:.02em;}
+
+  ul.timeline{list-style:none;margin:0;padding:0;position:relative;}
+  ul.timeline::before{
+    content:"";
+    position:absolute;left:5px;top:6px;bottom:6px;
+    width:1px;background:var(--line);
+  }
+  ul.timeline li{
+    position:relative;
+    padding:0 0 22px 26px;
+  }
+  ul.timeline li:last-child{padding-bottom:0;}
+  ul.timeline li::before{
+    content:"";
+    position:absolute;left:0;top:6px;
+    width:11px;height:11px;border-radius:50%;
+    background:var(--paper);
+    border:2px solid var(--forest-mid);
+  }
+  .time{
+    display:block;
+    font-family:'Shippori Mincho',serif;
+    font-weight:600;
+    color:var(--forest-deep);
+    font-size:1.02rem;
+    margin-bottom:4px;
+  }
+  .desc{color:var(--ink);font-size:.94rem;}
+  .desc strong{font-weight:600;}
+
+  .tag{
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:.72rem;font-weight:700;letter-spacing:.02em;
+    padding:3px 9px;border-radius:6px;
+    margin-right:6px;margin-top:6px;
+  }
+  .tag.todo{background:#e4eef0;color:var(--water);}
+  .tag.confirm{background:#e6ede2;color:var(--forest-mid);}
+  .tag.negotiate{background:#f7edd4;color:#8a6a13;}
+  .tag.urgent{background:#f6e1db;color:var(--alert);}
+
+  .note{
+    display:block;
+    margin-top:8px;
+    font-size:.83rem;
+    color:var(--alert);
+    background:#fbeeea;
+    border-left:3px solid var(--alert);
+    padding:7px 10px;
+    border-radius:4px;
+    line-height:1.6;
+  }
+
+  /* ---------- TRIVIA / COLUMN ---------- */
+  .chapter{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:var(--paper);
+    margin-bottom:16px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .chapter-banner{
+    width:100%;height:96px;display:block;
+  }
+  .chapter summary{
+    list-style:none;
+    cursor:pointer;
+    padding:18px 20px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .chapter summary::-webkit-details-marker{display:none;}
+  .chapter summary h3{
+    margin:0;font-size:1.05rem;color:var(--forest-deep);flex:1;line-height:1.5;
+  }
+  .chapter summary .chev{
+    width:18px;height:18px;flex:none;color:var(--moss);
+    transition:transform .25s ease;
+  }
+  .chapter[open] summary .chev{transform:rotate(180deg);}
+  .chapter .chapter-body{padding:0 20px 22px 20px;}
+  .trivia-list{list-style:none;margin:0;padding:0;}
+  .trivia-list li{
+    padding:16px 0;
+    border-top:1px dashed var(--line);
+    font-size:.92rem;
+    color:var(--ink-soft);
+  }
+  .trivia-list li:first-child{border-top:none;padding-top:6px;}
+  .trivia-list strong{
+    display:block;color:var(--cedar);
+    font-family:'Shippori Mincho',serif;
+    font-weight:600;font-size:1rem;
+    margin-bottom:5px;
+  }
+
+  footer{
+    text-align:center;
+    padding:50px 20px 60px;
+    color:var(--moss);
+    font-size:.8rem;
+    letter-spacing:.08em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .hero::after{animation:none;}
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  @media (max-width:480px){
+    section{padding:44px 14px 6px;}
+    .day-card{padding:20px 16px 16px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">2泊3日</span>
+    <h1>屋久島＆鹿児島<br>旅のしおり</h1>
+    <p class="sub">月に35日雨が降るという島で、数千年の森と海に会いにいく。</p>
+    <a href="https://maps.app.goo.gl/kX7KmGNKASBhESyQ9" class="map-btn" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      保存したマップを開く
+    </a>
+  </div>
+  <svg class="ridge" viewBox="0 0 1440 90" preserveAspectRatio="none">
+    <path d="M0,60 L120,30 L260,55 L420,15 L600,50 L760,20 L940,58 L1120,25 L1300,52 L1440,30 L1440,90 L0,90 Z" style="fill:var(--forest-mid);opacity:.55"/>
+    <path d="M0,75 L150,50 L320,72 L500,40 L680,68 L860,42 L1040,70 L1220,45 L1440,66 L1440,90 L0,90 Z" style="fill:var(--forest-deep)"/>
+  </svg>
+</header>
+
+<nav class="tabnav" id="tabnav">
+  <button data-target="day1">Day 1</button>
+  <button data-target="day2">Day 2</button>
+  <button data-target="day3">Day 3</button>
+  <button data-target="column">コラム</button>
+</nav>
+
+<main>
+
+  <!-- ============ DAY 1 ============ -->
+  <section id="day1">
+    <div class="section-head reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+      <h2>Day 1｜移動＆ダイビング</h2>
+      <span class="rule"></span>
+    </div>
+
+    <div class="day-card reveal">
+      <div class="day-head">
+        <svg class="day-badge" width="56" height="56" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="48" style="fill:var(--forest-deep)"/>
+          <circle cx="50" cy="50" r="37" style="fill:none;stroke:var(--paper);stroke-opacity:.15"/>
+          <circle cx="50" cy="50" r="26" style="fill:none;stroke:var(--paper);stroke-opacity:.15"/>
+          <text x="50" y="64" text-anchor="middle" font-family="'Shippori Mincho',serif" font-size="38" style="fill:var(--paper)">壱</text>
+        </svg>
+        <div class="day-head-text">
+          <span class="kicker">DAY ONE</span>
+          <h3>屋久島へ、そして海へ</h3>
+        </div>
+      </div>
+
+      <ul class="timeline">
+        <li><span class="time">06:40</span><span class="desc">東京 発</span></li>
+        <li><span class="time">08:25</span><span class="desc">鹿児島空港 着（足湯などで休憩）</span></li>
+        <li><span class="time">10:30</span><span class="desc">鹿児島空港 発</span></li>
+        <li><span class="time">11:10</span><span class="desc">屋久島空港 着</span></li>
+        <li>
+          <span class="time">〜12:00まで</span>
+          <span class="desc">
+            <span class="tag todo">To Do</span>ホテル荷物預け、レンタカー確保
+            <span class="note">配車先：しんじやまレンタカー</span>
+          </span>
+        </li>
+        <li><span class="time">13:30まで</span><span class="desc">車で宮之浦へ移動し、街中でランチ</span></li>
+        <li>
+          <span class="time">14:00〜17:00</span>
+          <span class="desc"><strong>体験ダイビング</strong>
+            <span class="note">一湊海水浴場集合</span>
+          </span>
+        </li>
+        <li><span class="time">17:00頃</span><span class="desc">ダイビング終了・着替え</span></li>
+        <li>
+          <span class="time">18:00頃</span>
+          <span class="desc">
+            安房（あんぼう）エリアの宿へチェックイン<br>
+            <span class="tag negotiate">交渉</span>翌日のお弁当を手配
+            <span class="tag confirm">確認</span>シャトルバスの使い方、ルート確認
+          </span>
+        </li>
+        <li><span class="time">夜</span><span class="desc">夕食・就寝</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <svg class="divider reveal" viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0,25 C 240,5 480,35 720,20 C 960,5 1200,35 1440,15" style="fill:none;stroke:var(--moss-pale);stroke-width:1.5"/></svg>
+
+  <!-- ============ DAY 2 ============ -->
+  <section id="day2">
+    <div class="section-head reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+      <h2>Day 2｜屋久杉トレッキング</h2>
+      <span class="rule"></span>
+    </div>
+
+    <div class="day-card reveal">
+      <div class="day-head">
+        <svg class="day-badge" width="56" height="56" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="48" style="fill:var(--forest-deep)"/>
+          <circle cx="50" cy="50" r="37" style="fill:none;stroke:var(--paper);stroke-opacity:.15"/>
+          <circle cx="50" cy="50" r="26" style="fill:none;stroke:var(--paper);stroke-opacity:.15"/>
+          <text x="50" y="64" text-anchor="middle" font-family="'Shippori Mincho',serif" font-size="38" style="fill:var(--paper)">弐</text>
+        </svg>
+        <div class="day-head-text">
+          <span class="kicker">DAY TWO</span>
+          <h3>数千年の森を歩く</h3>
+        </div>
+      </div>
+
+      <ul class="timeline">
+        <li><span class="time">早朝(04:00〜05:00)</span><span class="desc">起床・お弁当を持って出発</span></li>
+        <li><span class="time">終日</span><span class="desc"><strong>屋久杉トレッキング</strong></span></li>
+        <li><span class="time">16:00〜17:00頃</span><span class="desc">下山。その後、レンタカーでドライブへ！</span></li>
+        <li>
+          <span class="time">夕方</span>
+          <span class="desc">
+            ・屋久島かりん：お土産探しや休憩（17:30まで）<br>
+            ・平内海中温泉（15:00前後で干潮）
+          </span>
+        </li>
+        <li>
+          <span class="time">18:30〜19:00頃</span>
+          <span class="desc">
+            <span class="tag urgent">交渉必須</span><strong>レンタカー返却</strong>
+            <span class="note">翌朝早朝に港より移動のため。<br>※店舗は17:30閉店のため要交渉</span>
+          </span>
+        </li>
+        <li><span class="time">夜</span><span class="desc">屋久島最後の夜。島のお酒や美味しいご飯で打ち上げ！</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <svg class="divider reveal" viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0,15 C 240,35 480,5 720,20 C 960,35 1200,5 1440,25" style="fill:none;stroke:var(--moss-pale);stroke-width:1.5"/></svg>
+
+  <!-- ============ DAY 3 ============ -->
+  <section id="day3">
+    <div class="section-head reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+      <h2>Day 3｜知覧・鹿児島観光</h2>
+      <span class="rule"></span>
+    </div>
+
+    <div class="day-card reveal">
+      <div class="day-head">
+        <svg class="day-badge" width="56" height="56" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="48" style="fill:var(--forest-deep)"/>
+          <circle cx="50" cy="50" r="37" style="fill:none;stroke:var(--paper);stroke-opacity:.15"/>
+          <circle cx="50" cy="50" r="26" style="fill:none;stroke:var(--paper);stroke-opacity:.15"/>
+          <text x="50" y="64" text-anchor="middle" font-family="'Shippori Mincho',serif" font-size="38" style="fill:var(--paper)">参</text>
+        </svg>
+        <div class="day-head-text">
+          <span class="kicker">DAY THREE</span>
+          <h3>島から本土、そして帰路へ</h3>
+        </div>
+      </div>
+
+      <ul class="timeline">
+        <li><span class="time">07:00</span><span class="desc">屋久島（安房港）発【高速船トッピー】</span></li>
+        <li><span class="time">09:40</span><span class="desc">鹿児島（南埠頭）着</span></li>
+        <li>
+          <span class="time">10:00〜14:00</span>
+          <span class="desc">
+            <strong>知覧エリアへの移動＆観光</strong><br>
+            10:00頃：鹿児島市内を出発<br>
+            11:00〜14:00：知覧特攻平和会館や武家屋敷群の見学、周辺で昼食
+          </span>
+        </li>
+        <li><span class="time">14:00〜17:00</span><span class="desc">知覧を出発し、天文館や鹿児島空港方面へ移動。時間があればカフェ休憩やお土産探し。</span></li>
+        <li><span class="time">17:00頃</span><span class="desc">鹿児島空港へ向けて移動</span></li>
+        <li><span class="time">18:00頃</span><span class="desc">鹿児島空港 着。夕食や足湯。</span></li>
+        <li><span class="time">19:00〜20:30頃</span><span class="desc">鹿児島空港 発 → 東京 着</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <svg class="divider reveal" viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0,25 C 240,5 480,35 720,20 C 960,5 1200,35 1440,15" style="fill:none;stroke:var(--moss-pale);stroke-width:1.5"/></svg>
+
+  <!-- ============ COLUMN ============ -->
+  <section id="column">
+    <div class="section-head reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+      <h2>旅が深まる、屋久島コラム</h2>
+      <span class="rule"></span>
+    </div>
+    <p class="reveal" style="color:var(--ink-soft);font-size:.9rem;margin:-14px 0 26px;">タップして開く。移動中や待ち時間の読みものに。</p>
+
+    <!-- 第一章 -->
+    <details class="chapter reveal">
+      <svg class="chapter-banner" viewBox="0 0 800 200" preserveAspectRatio="none">
+        <rect width="800" height="200" style="fill:var(--forest-deep)"/>
+        <path d="M0,150 L100,90 L180,140 L280,60 L380,130 L480,80 L580,145 L680,95 L800,135 L800,200 L0,200 Z" style="fill:var(--forest-mid);opacity:.8"/>
+        <path d="M0,175 L120,140 L240,170 L360,120 L480,165 L600,130 L720,170 L800,150 L800,200 L0,200 Z" style="fill:var(--moss);opacity:.5"/>
+      </svg>
+      <summary>
+        <h3>第一章｜奇跡の自然・生態系</h3>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="chapter-body">
+        <ul class="trivia-list">
+          <li><strong>【気候・地形】洋上のアルプスと「月に35日の雨」</strong>屋久島は海からドーンと山が突き出た地形をしており、九州の標高トップ7までを屋久島が独占しています。海からの湿った風が急峻な山々にぶつかることで大量の雨雲が発生し、「月に35日雨が降る」と表現されるほどの降水量になります。この雨こそが美しい苔むす森を育てています。</li>
+          <li><strong>【植物生態】樹齢論争と菌根菌ネットワーク</strong>花崗岩でできた屋久島の土壌は栄養が極めて乏しく、杉の成長が遅くなりますが、代わりに樹脂が詰まって腐りにくくなり長寿に繋がります。縄文杉の樹齢はかつて7200年と言われましたが、現在は約2000〜3000年とする説も有力です。最新の研究では、根に共生する「菌根菌（きんこんきん）」が養分を運ぶ独自の生態系メカニズムが解明されています。</li>
+          <li><strong>【保全と未来】立ち入り禁止区域と生態調査</strong>環境省や研究機関によるモニタリング調査が定期的に行われており、世界遺産の核心地域などは厳格に保護されています。最新の生態調査により、気候変動が屋久島の固有種に与える影響なども注視され、未来へ向けた保全活動が続けられています。</li>
+          <li><strong>【海と火山】ウミガメの聖地と幻の海中温泉</strong>屋久島は森だけでなく、北太平洋最大のアカウミガメ産卵地としての顔も持ちます。また、海岸の岩場に湧く「平内海中温泉」は火山の恵みであり、干潮の前後約2時間しか入れない、地球の息吹を直接感じられるスポットです。</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第二章 -->
+    <details class="chapter reveal">
+      <svg class="chapter-banner" viewBox="0 0 800 200" preserveAspectRatio="none">
+        <rect width="800" height="200" style="fill:var(--cedar)"/>
+        <circle cx="400" cy="100" r="10" style="fill:none;stroke:var(--gold-soft);stroke-opacity:.6"/>
+        <circle cx="400" cy="100" r="28" style="fill:none;stroke:var(--gold-soft);stroke-opacity:.45"/>
+        <circle cx="400" cy="100" r="48" style="fill:none;stroke:var(--gold-soft);stroke-opacity:.3"/>
+        <circle cx="400" cy="100" r="70" style="fill:none;stroke:var(--gold-soft);stroke-opacity:.2"/>
+        <circle cx="400" cy="100" r="95" style="fill:none;stroke:var(--gold-soft);stroke-opacity:.12"/>
+      </svg>
+      <summary>
+        <h3>第二章｜人間と森の歴史</h3>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="chapter-body">
+        <ul class="trivia-list">
+          <li><strong>【古代】大噴火を越えた島民の足跡</strong>島内の遺跡（一湊遺跡など）からは縄文時代の土器が多数発掘されています。約7300年前の鬼界カルデラ大噴火という壊滅的な災害を乗り越え、古代から人々がこの過酷で豊かな自然と共生してきた貴重な記録が残されています。</li>
+          <li><strong>【戦国〜江戸】ウィルソン株と「平木」の大規模伐採</strong>縄文杉ルートにあるハート型の「ウィルソン株」は、約400年前に豊臣秀吉の命令で方広寺建立のために切られた跡と言われています。江戸時代に入ると、平地が少なく米が育たない島民を救うため、屋久杉を屋根材（平木・ひらぎ）に加工して薩摩藩へ納める制度が始まり、数百年続く大規模な伐採が行われました。</li>
+          <li><strong>【近代】トロッコ道（森林鉄道）の記憶</strong>縄文杉ルートの前半で歩く平坦な「トロッコ道」は、大正から昭和にかけて、伐採した屋久杉を山から港へ運ぶために敷かれた「森林鉄道」の軌道跡です。現在は登山者の歩道として、当時の面影を伝えています。</li>
+          <li><strong>【現代への継承】巨木の生存と「切り株更新」が魅せる芸術</strong>過酷な伐採の中で縄文杉などの巨木が生き残った理由は、数千年を生きて幹が激しく曲がったり瘤ができたりして「真っ直ぐな木材として使い道がなかった（不良品だった）から」です。また、切られた巨大な切り株や倒木の上に苔がむし、そこに新たな種が落ちて次の世代が育つ「切り株更新」が起きました。現在の美しい森は、人間の痕跡を苗床にして自然が数百年かけて再生し続ける「共存の証」です。</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第三章 -->
+    <details class="chapter reveal">
+      <svg class="chapter-banner" viewBox="0 0 800 200" preserveAspectRatio="none">
+        <rect width="800" height="200" style="fill:var(--water)"/>
+        <path d="M330,150 L330,60 L340,60 L340,40 L360,40 L360,20 L440,20 L440,40 L460,40 L460,60 L470,60 L470,150" style="fill:none;stroke:var(--paper);stroke-width:6;stroke-opacity:.5"/>
+        <line x1="300" y1="150" x2="500" y2="150" style="stroke:var(--paper);stroke-width:6;stroke-opacity:.5"/>
+      </svg>
+      <summary>
+        <h3>第三章｜精神文化と伝承</h3>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="chapter-body">
+        <ul class="trivia-list">
+          <li><strong>【信仰】神々が住む頂へ祈る「岳参り」</strong>島民にとって高山は神聖な信仰の対象です。春と秋に集落の代表者が宮之浦岳などの山頂を目指し、山の神に五穀豊穣や無病息災、大漁を祈願する「岳参り（たけまいり）」という伝統行事が、現在も集落ごとに脈々と受け継がれています。</li>
+          <li><strong>【伝承】森に宿る「山の神」への畏怖</strong>深い森には古くから山の神や木霊（こだま）が宿ると信じられてきました。地元の猟師たちが山に入る際、「オジャリマウセ（お邪魔します）」と神に挨拶をするなど、自然への深い畏怖と敬意が今も民話や習慣として息づいています。</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第四章 -->
+    <details class="chapter reveal">
+      <svg class="chapter-banner" viewBox="0 0 800 200" preserveAspectRatio="none">
+        <rect width="800" height="200" style="fill:var(--forest-mid)"/>
+        <circle cx="230" cy="110" r="16" style="fill:var(--paper);opacity:.85"/>
+        <circle cx="226" cy="106" r="2" style="fill:var(--forest-deep)"/>
+        <circle cx="234" cy="106" r="2" style="fill:var(--forest-deep)"/>
+        <circle cx="420" cy="90" r="12" style="fill:var(--paper);opacity:.6"/>
+        <circle cx="417" cy="87" r="1.6" style="fill:var(--forest-deep)"/>
+        <circle cx="423" cy="87" r="1.6" style="fill:var(--forest-deep)"/>
+        <circle cx="580" cy="125" r="20" style="fill:var(--paper);opacity:.7"/>
+        <circle cx="574" cy="120" r="2.2" style="fill:var(--forest-deep)"/>
+        <circle cx="586" cy="120" r="2.2" style="fill:var(--forest-deep)"/>
+      </svg>
+      <summary>
+        <h3>第四章｜ジブリ『もののけ姫』の世界</h3>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </summary>
+      <div class="chapter-body">
+        <ul class="trivia-list">
+          <li><strong>【舞台・ロケハン】宮崎駿監督が歩いた「苔むす森」</strong>1990年代、宮崎駿監督らジブリスタッフが何度も屋久島へロケハンに訪れました。特に「白谷雲水峡（しらたにうんすいきょう）」の奥深い一帯は、シシ神の森の強烈なインスピレーションとなり、現在では「苔むす森」という名が公式ルート上でも定着しています。</li>
+          <li><strong>【美術・描写】男鹿和雄が追求した「緑」と「水」</strong>美術監督の男鹿和雄氏は屋久島で膨大なスケッチを重ねました。屋久島特有の激しい雨が作り出す「濡れた緑」、花崗岩に張り付くシダ類、うねるような木の根の描写など、あの圧倒的で神秘的なアニメーションの背景美は、屋久島での観察から生み出されました。</li>
+          <li><strong>【キャラクター】「コダマ（木霊）」が生まれる静寂と気配</strong>豊かな森に住む精霊・コダマは、屋久島の鬱蒼とした森に足を踏み入れた時に感じる「何かが見ているような、不思議な気配」から生み出されました。実際の苔むす森を歩き、静寂の中で耳を澄ますと、ふとした瞬間にコダマが現れそうな錯覚に陥ります。</li>
+          <li><strong>【テーマ】人間の営みと自然の共存</strong>タタラ場の人間たちと森の神々の激しい対立を描いた本作のテーマは、江戸時代からの大規模伐採（人間の営み）と、そこから数百年かけて復活した屋久島の森（自然の再生）という、屋久島が歩んできた歴史そのものと深く共鳴しています。</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <footer>良い旅を。｜屋久島＆鹿児島 2泊3日</footer>
+</main>
+
+<script>
+  // タブナビゲーション：クリックでスクロール
+  const navButtons = document.querySelectorAll('.tabnav button');
+  navButtons.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const target = document.getElementById(btn.dataset.target);
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // スクロールスパイ：現在地をハイライト
+  const sections = document.querySelectorAll('main section[id]');
+  const spy = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        navButtons.forEach(b=>b.classList.toggle('active', b.dataset.target === entry.target.id));
+      }
+    });
+  }, {rootMargin:'-35% 0px -55% 0px', threshold:0});
+  sections.forEach(s=>spy.observe(s));
+
+  // スクロールで浮かび上がる演出（モーション低減設定を尊重）
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('.reveal');
+  if(prefersReduced){
+    revealEls.forEach(el=>el.classList.add('visible'));
+  } else {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12});
+    revealEls.forEach(el=>io.observe(el));
+  }
+</script>
+
+</body>
+</html>
