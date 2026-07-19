@@ -137,13 +137,6 @@
   }
   .tabnav button.active{background:var(--forest-deep);color:var(--paper);}
   .tabnav button:hover:not(.active){background:var(--mist);}
-  .tabnav a.settle{color:var(--water);}
-  .tabnav a.settle svg{width:14px;height:14px;flex:none;}
-  .tabnav a.settle:hover{background:#e4eef0;}
-  .tabnav .sep{
-    flex:none;width:1px;align-self:stretch;margin:4px 2px;
-    background:var(--line);
-  }
 
   /* ---------- SECTION SHELL ---------- */
   section{padding:56px 18px 10px;max-width:760px;margin:0 auto;}
@@ -276,6 +269,63 @@
   .spot-map svg{width:12px;height:12px;flex:none;}
   .spot-map:hover{background:#d3e4e7;}
 
+  /* ---------- BUDGET (Day Extra：出費レポート) ---------- */
+  .cat-transport{background:var(--water);}
+  .budget-card .day-head{margin-bottom:14px;}
+  .budget-amount{
+    font-family:'Shippori Mincho',serif;
+    font-weight:700;
+    font-size:1.5rem;
+    color:var(--forest-deep);
+    margin:2px 0 12px;
+  }
+  .budget-detail{
+    font-size:.88rem;
+    color:var(--ink-soft);
+    margin:0 0 12px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--line);
+  }
+  .budget-detail b{color:var(--ink);font-weight:600;}
+  .tip{
+    display:block;
+    font-size:.85rem;
+    color:var(--forest-mid);
+    background:#e9efe6;
+    border-left:3px solid var(--moss);
+    padding:9px 12px;
+    border-radius:4px;
+    line-height:1.65;
+  }
+  .total-banner{
+    background:linear-gradient(135deg,var(--forest-deep),var(--forest-mid));
+    color:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:34px 24px;
+    text-align:center;
+  }
+  .total-banner .t-label{
+    display:block;
+    font-size:.78rem;
+    letter-spacing:.2em;
+    color:var(--moss-pale);
+    margin-bottom:10px;
+  }
+  .total-banner .t-amount{
+    font-family:'Shippori Mincho',serif;
+    font-weight:700;
+    font-size:clamp(2rem,7vw,2.6rem);
+    letter-spacing:.02em;
+  }
+  .total-banner .t-amount small{
+    font-family:'Noto Sans JP',sans-serif;
+    font-size:1rem;
+    font-weight:500;
+    opacity:.75;
+    margin-left:6px;
+  }
+
   /* ---------- TRIVIA / COLUMN ---------- */
   .chapter{
     border:1px solid var(--line);
@@ -362,12 +412,8 @@
   <button data-target="day2">Day 2</button>
   <button data-target="day3">Day 3</button>
   <button data-target="extra">マイベスト</button>
+  <button data-target="budget">予算</button>
   <button data-target="column">コラム</button>
-  <span class="sep"></span>
-  <a class="settle" href="https://walica.jp/group/01KWTFR81MG53XG8XW4H6HVYK6" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
-    精算
-  </a>
 </nav>
 
 <main>
@@ -523,7 +569,7 @@
   <section id="extra">
     <div class="section-head reveal">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-      <h2>Day Extra｜屋久島マイベスト・スポット</h2>
+      <h2>屋久島マイベスト・スポット</h2>
       <span class="rule"></span>
     </div>
     <p class="reveal" style="color:var(--ink-soft);font-size:.9rem;margin:-14px 0 26px;">グルメからショッピングまで、行程の合間に差し込みたいオリジナルセレクション。</p>
@@ -703,6 +749,82 @@
   </section>
 
   <svg class="divider reveal" viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0,15 C 240,35 480,5 720,20 C 960,35 1200,5 1440,25" style="fill:none;stroke:var(--moss-pale);stroke-width:1.5"/></svg>
+
+  <!-- ============ DAY EXTRA：出費レポート ============ -->
+  <section id="budget">
+    <div class="section-head reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M8 15h3"/></svg>
+      <h2>出費レポート</h2>
+      <span class="rule"></span>
+    </div>
+    <p class="reveal" style="color:var(--ink-soft);font-size:.9rem;margin:-14px 0 26px;">
+      「屋久島に行ってみたいけど、トータルでいくらかかるの？」という疑問にお答えすべく、実際の3名分の旅行データをもとにした1人あたりの予算目安（約10万円）を大公開！交通費から食費まで、赤裸々なリアルデータです。
+    </p>
+
+    <!-- 交通費 -->
+    <div class="day-card budget-card reveal">
+      <div class="day-head">
+        <div class="cat-badge cat-transport">✈️</div>
+        <div class="day-head-text">
+          <span class="kicker">TRANSPORT</span>
+          <h3>交通費（飛行機・船・現地移動）</h3>
+        </div>
+      </div>
+      <div class="budget-amount">約57,000円</div>
+      <p class="budget-detail"><b>内訳：</b>鹿児島〜屋久島の飛行機（約2.3万円）、高速船トッピー（1.4万円）、鹿児島〜羽田の飛行機（約1.7万円）、レンタカー＆ガソリン・バス等（約3,000円）</p>
+      <span class="tip">屋久島への移動は「飛行機」と「船」で選択肢あり。早めの予約やLCCの活用で、もう少し抑えることも可能！現地のレンタカーはマスト。</span>
+    </div>
+
+    <!-- アクティビティ -->
+    <div class="day-card budget-card reveal">
+      <div class="day-head">
+        <div class="cat-badge cat-activity">🤿</div>
+        <div class="day-head-text">
+          <span class="kicker">ACTIVITY</span>
+          <h3>アクティビティ・観光・入浴</h3>
+        </div>
+      </div>
+      <div class="budget-amount">約16,000円</div>
+      <p class="budget-detail"><b>内訳：</b>体験ダイビング（1.2万円）、温泉・お風呂代など</p>
+      <span class="tip">ウミガメと泳げるダイビングは絶対に体験したいプライスレスな投資。トレッキング後の温泉代もしっかり予算に入れておくのが吉です。</span>
+    </div>
+
+    <!-- 食費 -->
+    <div class="day-card budget-card reveal">
+      <div class="day-head">
+        <div class="cat-badge cat-food">🍽️</div>
+        <div class="day-head-text">
+          <span class="kicker">FOOD</span>
+          <h3>食費（ご飯・お弁当・カフェ）</h3>
+        </div>
+      </div>
+      <div class="budget-amount">約15,000円</div>
+      <p class="budget-detail"><b>内訳：</b>漁火屋での豪華ディナー、トレッキング用のあさひ弁当、鱗屋の朝ごはん、鹿児島空港での食事など</p>
+      <span class="tip">現地の美味しい海の幸や名物料理は妥協なし！トレッキングの日は早朝出発のため、前日にお弁当（約1,200円〜）を手配しておくのが屋久島スタイルです。</span>
+    </div>
+
+    <!-- 雑費 -->
+    <div class="day-card budget-card reveal">
+      <div class="day-head">
+        <div class="cat-badge cat-shop">🛍️</div>
+        <div class="day-head-text">
+          <span class="kicker">MISC</span>
+          <h3>雑費</h3>
+        </div>
+      </div>
+      <div class="budget-amount">約4,700円</div>
+      <p class="budget-detail"><b>内訳：</b>スーパーでの食料・飲料調達など</p>
+      <span class="tip">屋久島はスーパーが限られているので、必要なものは早めに調達。タオルやマリングッズを現地でシェア買いした費用です。</span>
+    </div>
+
+    <!-- 合計 -->
+    <div class="total-banner reveal">
+      <span class="t-label">トータル予算（目安）</span>
+      <div class="t-amount">約102,700円<small>/ 人</small></div>
+    </div>
+  </section>
+
+  <svg class="divider reveal" viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0,25 C 240,5 480,35 720,20 C 960,5 1200,35 1440,15" style="fill:none;stroke:var(--moss-pale);stroke-width:1.5"/></svg>
 
   <!-- ============ COLUMN ============ -->
   <section id="column">
