@@ -115,7 +115,8 @@
     scrollbar-width:none;
   }
   .tabnav::-webkit-scrollbar{display:none;}
-  .tabnav button{
+  .tabnav button,
+  .tabnav a{
     flex:none;
     font-family:'Noto Sans JP',sans-serif;
     font-size:.82rem;
@@ -128,10 +129,21 @@
     border-radius:999px;
     cursor:pointer;
     white-space:nowrap;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
     transition:background .2s ease,color .2s ease;
   }
   .tabnav button.active{background:var(--forest-deep);color:var(--paper);}
   .tabnav button:hover:not(.active){background:var(--mist);}
+  .tabnav a.settle{color:var(--water);}
+  .tabnav a.settle svg{width:14px;height:14px;flex:none;}
+  .tabnav a.settle:hover{background:#e4eef0;}
+  .tabnav .sep{
+    flex:none;width:1px;align-self:stretch;margin:4px 2px;
+    background:var(--line);
+  }
 
   /* ---------- SECTION SHELL ---------- */
   section{padding:56px 18px 10px;max-width:760px;margin:0 auto;}
@@ -222,6 +234,48 @@
     line-height:1.6;
   }
 
+  /* ---------- CATEGORY BADGE (Day Extra) ---------- */
+  .cat-badge{
+    flex:none;width:56px;height:56px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:24px;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);
+  }
+  .cat-badge.cat-food{background:var(--cedar);}
+  .cat-badge.cat-activity{background:var(--forest-deep);}
+  .cat-badge.cat-onsen{background:var(--water);}
+  .cat-badge.cat-shop{background:var(--gold);}
+
+  .spot-list{list-style:none;margin:0;padding:0;}
+  .spot-item{
+    display:flex;gap:14px;
+    padding:16px 0;
+    border-top:1px dashed var(--line);
+  }
+  .spot-item:first-child{border-top:none;padding-top:4px;}
+  .spot-emoji{flex:none;width:32px;font-size:21px;text-align:center;line-height:1.5;}
+  .spot-body{flex:1;min-width:0;}
+  .spot-body h4{
+    margin:0 0 4px;
+    font-family:'Shippori Mincho',serif;
+    font-weight:600;
+    font-size:1rem;
+    color:var(--forest-deep);
+  }
+  .spot-body p{margin:0 0 9px;font-size:.88rem;color:var(--ink-soft);}
+  .spot-map{
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:.76rem;font-weight:700;
+    color:var(--water);
+    background:#e4eef0;
+    text-decoration:none;
+    padding:4px 11px;
+    border-radius:999px;
+    transition:background .2s ease;
+  }
+  .spot-map svg{width:12px;height:12px;flex:none;}
+  .spot-map:hover{background:#d3e4e7;}
+
   /* ---------- TRIVIA / COLUMN ---------- */
   .chapter{
     border:1px solid var(--line);
@@ -307,7 +361,13 @@
   <button data-target="day1">Day 1</button>
   <button data-target="day2">Day 2</button>
   <button data-target="day3">Day 3</button>
+  <button data-target="extra">マイベスト</button>
   <button data-target="column">コラム</button>
+  <span class="sep"></span>
+  <a class="settle" href="https://walica.jp/group/01KWTFR81MG53XG8XW4H6HVYK6" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
+    精算
+  </a>
 </nav>
 
 <main>
@@ -458,6 +518,191 @@
   </section>
 
   <svg class="divider reveal" viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0,25 C 240,5 480,35 720,20 C 960,5 1200,35 1440,15" style="fill:none;stroke:var(--moss-pale);stroke-width:1.5"/></svg>
+
+  <!-- ============ DAY EXTRA：マイベストスポット ============ -->
+  <section id="extra">
+    <div class="section-head reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      <h2>Day Extra｜屋久島マイベスト・スポット</h2>
+      <span class="rule"></span>
+    </div>
+    <p class="reveal" style="color:var(--ink-soft);font-size:.9rem;margin:-14px 0 26px;">グルメからショッピングまで、行程の合間に差し込みたいオリジナルセレクション。</p>
+
+    <!-- グルメ＆カフェ -->
+    <div class="day-card reveal">
+      <div class="day-head">
+        <div class="cat-badge cat-food">🍽️</div>
+        <div class="day-head-text">
+          <span class="kicker">GOURMET</span>
+          <h3>絶品！島グルメ＆カフェ</h3>
+        </div>
+      </div>
+      <ul class="spot-list">
+        <li class="spot-item">
+          <span class="spot-emoji">🍱</span>
+          <div class="spot-body">
+            <h4>トレッキング用のお弁当 No.1</h4>
+            <p>早朝出発の必需品！個人的に一番おすすめのお弁当屋さん。</p>
+            <a class="spot-map" href="https://maps.app.goo.gl/HLga3bLCS2vEqMJCA" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              地図を見る
+            </a>
+          </div>
+        </li>
+        <li class="spot-item">
+          <span class="spot-emoji">🥞</span>
+          <div class="spot-body">
+            <h4>島内No.1朝ごはん（SUPもおすすめ！）</h4>
+            <p>最高の1日のスタートに！朝食はもちろん、SUPのアクティビティもイチオシ。</p>
+            <a class="spot-map" href="https://maps.app.goo.gl/XUbZmwMNG3FuXxzf8" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              地図を見る
+            </a>
+          </div>
+        </li>
+        <li class="spot-item">
+          <span class="spot-emoji">☕</span>
+          <div class="spot-body">
+            <h4>島内人気No.1カフェ</h4>
+            <p>屋久島で一番人気のカフェ。ドライブの休憩やホッと一息つきたい時に。</p>
+            <a class="spot-map" href="https://maps.app.goo.gl/1QnEhoon5wJgTh9m7" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              地図を見る
+            </a>
+          </div>
+        </li>
+        <li class="spot-item">
+          <span class="spot-emoji">🍴</span>
+          <div class="spot-body">
+            <h4>個人的No.1ご飯屋さん</h4>
+            <p>絶対に外せない名店！何を頼んでも全部美味しいハズレなしのご飯屋さん。</p>
+            <a class="spot-map" href="https://maps.app.goo.gl/i1fhmh6VezJ2WQWCA" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              地図を見る
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- アクティビティ＆絶景スポット -->
+    <div class="day-card reveal">
+      <div class="day-head">
+        <div class="cat-badge cat-activity">🏃</div>
+        <div class="day-head-text">
+          <span class="kicker">ACTIVITY</span>
+          <h3>アクティビティ＆絶景スポット</h3>
+        </div>
+      </div>
+      <ul class="spot-list">
+        <li class="spot-item">
+          <span class="spot-emoji">🌲</span>
+          <div class="spot-body">
+            <h4>もののけ姫の聖地</h4>
+            <p>言わずと知れたジブリの世界！圧倒的な苔むす森の美しさに息を呑む絶対的聖地。</p>
+            <a class="spot-map" href="https://maps.app.goo.gl/QBhEZBT6rvRvPkdx8" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              地図を見る
+            </a>
+          </div>
+        </li>
+        <li class="spot-item">
+          <span class="spot-emoji">🥾</span>
+          <div class="spot-body">
+            <h4>島民No.1おすすめコース</h4>
+            <p>島民お墨付きのトレッキングルート。縄文杉を回るガッツリ10時間ルートへのアレンジも可能！</p>
+            <a class="spot-map" href="https://maps.app.goo.gl/BMwRtp1PyFeNUoKz6" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              地図を見る
+            </a>
+          </div>
+        </li>
+        <li class="spot-item">
+          <span class="spot-emoji">🤿</span>
+          <div class="spot-body">
+            <h4>ダイビングショップ</h4>
+            <p>ガイドさんは「くせつよ」だけど、実はとっても丁寧！安心して海を満喫できるショップ。</p>
+            <a class="spot-map" href="https://maps.app.goo.gl/HzqdABMadcgeaD3s9" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              地図を見る
+            </a>
+          </div>
+        </li>
+        <li class="spot-item">
+          <span class="spot-emoji">🚙</span>
+          <div class="spot-body">
+            <h4>名物おばちゃんのレンタカー屋さん</h4>
+            <p>イチオシ！名物おばちゃんがいるアットホームで安心のレンタカーショップ。</p>
+            <a class="spot-map" href="https://maps.app.goo.gl/xrTKN1iSNpgRAB1Q7" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              地図を見る
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 温泉＆ホテル -->
+    <div class="day-card reveal">
+      <div class="day-head">
+        <div class="cat-badge cat-onsen">♨️</div>
+        <div class="day-head-text">
+          <span class="kicker">ONSEN &amp; STAY</span>
+          <h3>癒やしの絶景温泉＆ホテル</h3>
+        </div>
+      </div>
+      <ul class="spot-list">
+        <li class="spot-item">
+          <span class="spot-emoji">🌌</span>
+          <div class="spot-body">
+            <h4>個人的No.1温泉</h4>
+            <p>夜に行くのが圧倒的におすすめ。満天の星空が綺麗に見える最高のロケーション！</p>
+            <a class="spot-map" href="https://maps.app.goo.gl/Us4wdfLDVtd3QHkVA" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              地図を見る
+            </a>
+          </div>
+        </li>
+        <li class="spot-item">
+          <span class="spot-emoji">🏨</span>
+          <div class="spot-body">
+            <h4>美白の湯として有名なホテル</h4>
+            <p>美肌効果抜群の温泉が魅力。日頃の疲れもトレッキングの筋肉痛も癒やされます。</p>
+            <a class="spot-map" href="https://maps.app.goo.gl/HWWyvyfa6MSji5rb9" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              地図を見る
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ショッピング＆お土産 -->
+    <div class="day-card reveal">
+      <div class="day-head">
+        <div class="cat-badge cat-shop">🛍️</div>
+        <div class="day-head-text">
+          <span class="kicker">SHOPPING</span>
+          <h3>ショッピング＆お土産</h3>
+        </div>
+      </div>
+      <ul class="spot-list">
+        <li class="spot-item">
+          <span class="spot-emoji">👕</span>
+          <div class="spot-body">
+            <h4>THE NORTH FACE 屋久島</h4>
+            <p>ここでしか買えない「屋久島限定アイテム」あり！お土産やトレッキング前の買い足しにピッタリ。</p>
+            <a class="spot-map" href="https://maps.app.goo.gl/tzkduSJNFujEvA8X8" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              地図を見る
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <svg class="divider reveal" viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0,15 C 240,35 480,5 720,20 C 960,35 1200,5 1440,25" style="fill:none;stroke:var(--moss-pale);stroke-width:1.5"/></svg>
 
   <!-- ============ COLUMN ============ -->
   <section id="column">
